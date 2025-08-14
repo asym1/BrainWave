@@ -1,7 +1,12 @@
-neurosity
+# ML libraries
 numpy
 scipy
 pandas
 matplotlib
 scikit-learn
 jupyter
+tensorflow
+
+# Neurosity Connection
+neurosity
+python-dotenv
