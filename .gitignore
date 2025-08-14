@@ -1,0 +1,11 @@
+# Python
+.venv/
+venv/
+.vscode/
+.env
+
+
+# comment/uncomment up to discretion
+# data/
+# data_raw/
+# models/
