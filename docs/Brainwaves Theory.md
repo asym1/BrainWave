@@ -10,7 +10,9 @@ An EEG records the brain's electrical activity using small electrodes placed on 
 - Many "cortical pyramidal" neurons have a similar orientation, allowing their currents to sum coherently and form a net dipole that projects to the scalp. If neurons are randomly oriented or asynchronous, their fields cancel and the scalp electrode (that measures) sees little. These reasons are why cortex (not deep or randomly oriented cells) is the primary visible source for scalp EEG.
 - Electrical fields travel through brain tissue, cerebrospinal fluid, skull and scalp before reaching electrodes. Those layers reduce spatial detail (they “blur” the field), which is why EEG localization is approximate and why deep sources are hard to see unless they are strong or propagate to surface cortex.
 - Because the signals are so small, The EEG system must filter and amplify them carefully to reduce noise from muscles, eyes, or the environment, and then boosts these microvolt-level signals and converts them to digital form for recording
-![[diagram of dipoles.png]]
+
+![diagram of dipoles](/docs/diagram.png)
+
 #### Quote From A [Study](https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1012794)
 *Here, we performed detailed biophysical and computational modelling of electric field generation in the brain to ascertain the extent to which spiking activity contributes to scalp EEG. We find that it generally does not, suggesting that high frequency broadband EEG signals reflect noise unrelated to brain activity, and validating that low frequency broadband signals are produced by electrical transmission between neurons and not spiking activity. However, our results do characterize a range of frequencies where EEG oscillations may be generated, either in part or in full, by spiking activity. We conclude that spiking activity does not produce broadband signals, but can still generate narrowband signals at high frequencies. Understanding the origins of high-frequency EEG signals has important implications for interpreting scalp recordings and informs the design of quantitative methods for signal analysis.*
 ## Frequency
