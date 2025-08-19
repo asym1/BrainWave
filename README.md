@@ -15,5 +15,6 @@ NEUROSITY_EMAIL=your email here
 NEUROSITY_PASSWORD=your password here
 NEUROSITY_DEVICE_ID=your device id here
 ```
-- Setup a virtual enviroment & install everything in `requirements.txt`
-- Go to [SDK Testing Notebook](src/python/notebooks/SDKtest.ipynb) and make sure your sdk is working properly before using any scripts in the following sections
+- Setup a virtual enviroment and ide to allow jupyter notebooks & python scripts
+- install everything in `requirements.txt` using either pip or enviroment command
+- Go to [SDK Testing Notebook](src/python/notebooks/SDKtest.ipynb) to make sure your sdk is working properly before using any scripts in the following sections
