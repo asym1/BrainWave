@@ -30,7 +30,8 @@ An EEG records the brain's electrical activity using small electrodes placed on 
 	- e.g. high alpha with closed eyes, delta in deep sleep
 - By noting which bands dominate and where they appear on the scalp, clinicians assess brain state and function
 
-
+  ![Bands Diagram](/docs/bands.png)
+  
 ## Lobes
 - The brain has 4 main lobes: Frontal, Parietal, Occipital, and Temporal
 - Certain frequency bands tend to be the strongest over particular lobes as previously mentioned in the Bands section
