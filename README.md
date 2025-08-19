@@ -10,5 +10,10 @@ EEG emotion detection in Python
 - The *progress* file will have the list of current tasks we are working on for convenience and any future open source contributions
 ## Setup
 - Create a `.env` file with the Neurosity Emulator: Device Id, account Email, account Password
+```
+NEUROSITY_EMAIL=your email here
+NEUROSITY_PASSWORD=your password here
+NEUROSITY_DEVICE_ID=your device id here
+```
 - Setup a virtual enviroment & install everything in `requirements.txt`
-- 
+- Go to [SDK Testing Notebook](src/python/notebooks/SDKtest.ipynb) and make sure your sdk is working properly before using any scripts in the following sections
