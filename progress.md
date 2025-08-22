@@ -7,3 +7,4 @@
 - Testing [Neurosity SDK](https://github.com/neurosity/neurosity-sdk-python?tab=readme-ov-file) 
 ## *Issues / Pending*
 - (if we want to use our scripts as modules to run on a notebook, add a `__init__.py` file in the repo)
+- I think the 5 second raw EEG graph in `SDKtest` is not matching the channels correctly (incorrect Y-axis)

@@ -1,5 +1,6 @@
+*note: to find tests for retrieving all types of EEG data go [here](/src/python/notebooks/SDKtest.ipynb)
 ## Epoch
-- instead of streaming one sample at a time (at 256 samples a second), the API groups 16 samples into a mini-window called an *epoch*, allowing you to recieve 16 epochs per second, with each `epoch = 16 samples / 256 Hz = 62.5 ms` worth of data.
+- instead of streaming one sample at a time (at 250 samples a second), the API groups 25 samples into a mini-window called an *epoch*, allowing you to recieve 25 epochs per second, with each `epoch = 25 samples / 250 Hz = 100 ms` worth of data.
 
 Why use epochs instead of single samples?
 - More efficient for streaming.
