@@ -6,7 +6,7 @@ matplotlib
 scikit-learn
 jupyter
 tensorflow
-pytorch
+torch
 
 # Neurosity Connection
 neurosity

@@ -1,11 +1,10 @@
 ## *Primary Tasks*
-- *Amr & Sarah*: Figure out data pipeline theory & libraries/code
-  - Data Pipelines for a live feed
-  - Training Data Pipeline
   - Find conventional AI algorithms used for working with EEG data
-      - Can we use optimizers?
+      - note : Can we use optimizers?
   - Find new gen AI techniques that can give better results
 ## *Currently Working On*
-- Understanding
+- Figuring out how to clasiffy EEG data into states/labels
+- Testing [Neurosity SDK](https://github.com/neurosity/neurosity-sdk-python?tab=readme-ov-file) 
 ## *Issues / Pending*
-- 
+- (if we want to use our scripts as modules to run on a notebook, add a `__init__.py` file in the repo)
+- I think the 5 second raw EEG graph in `SDKtest` is not matching the channels correctly (incorrect Y-axis)
