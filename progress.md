@@ -1,10 +1,12 @@
-## *Primary Tasks*
-  - Find conventional AI algorithms used for working with EEG data
-      - note : Can we use optimizers?
-  - Find new gen AI techniques that can give better results
+## *Roadmap*
+  - Perform EDA (Exploratory Data Analysis) on the raw, absolute power, and psd data (with calm/focus probabilities)
+  - Use decision trees / regression for Feature Importance Analysis
+  - ***Phase 1***
+    - Train Supervised Learning Algorithms such as Classification, Boosting, and Bagging
+  - ***Phase 2***
+    - Train LLM
 ## *Currently Working On*
-- Figuring out how to clasiffy EEG data into states/labels
+- Recording and saving data
 - Testing [Neurosity SDK](https://github.com/neurosity/neurosity-sdk-python?tab=readme-ov-file) 
 ## *Issues / Pending*
-- (if we want to use our scripts as modules to run on a notebook, add a `__init__.py` file in the repo)
 - I think the 5 second raw EEG graph in `SDKtest` is not matching the channels correctly (incorrect Y-axis)
