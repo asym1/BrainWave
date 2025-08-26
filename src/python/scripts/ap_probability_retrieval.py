@@ -4,15 +4,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from neurosity import NeurositySDK
+
 from dotenv import load_dotenv
 import os
 # might need to avoid writing into same table at the same time (data corruption)
 # import threading
 
-
+# Connecting To Neurosity
 load_dotenv()
-
-# Connect to Neurosity
 neurosity = NeurositySDK({
     "device_id": os.getenv("NEUROSITY_DEVICE_ID")
 })
@@ -23,14 +22,26 @@ neurosity.login({
 
 # Variables
 seconds = 5
+focusList = []
+calmList = []
+apList = []
+currTimestamp = 0
 
 # Callbacks for the SDK
 def callback_focus(data):
-    pass
+    global focusList
+    global currTimestamp 
+    currTimestamp = data['timestamp']
+    focusList.append([data['timestamp'], {data['label']: data['probability']}])
 def callback_calm(data):
-    pass
+    global calmList
+    global currTimestamp 
+    currTimestamp = data['timestamp']
+    calmList.append([data['timestamp'], {data['label']: data['probability']}])
 def callback_ap(data):
-    pass
+    global apList
+    global currTimestamp
+    apList.append([currTimestamp, data['data']['alpha'], data['data']['beta'], data['data']['delta'], data['data']['gamma'], data['data']['theta']])
 
 # Subscriptions to the live stream
 print(f"collecting data for the ap_probability table for {seconds} seconds")
@@ -46,5 +57,7 @@ focus_unsubscribe()
 calm_unsubscribe()
 ap_unsubscribe()
 
-pass 
-
+# Save to csv
+print(focusList)
+print(calmList)
+print(apList)
