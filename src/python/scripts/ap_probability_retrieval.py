@@ -30,14 +30,14 @@ currTimestamp = 0
 # Callbacks for the SDK
 def callback_focus(data):
     global focusList
-    global currTimestamp 
+    global currTimestamp
     currTimestamp = data['timestamp']
-    focusList.append([data['timestamp'], {data['label']: data['probability']}])
+    focusList.append([data['timestamp'],data['probability']])
 def callback_calm(data):
     global calmList
     global currTimestamp 
     currTimestamp = data['timestamp']
-    calmList.append([data['timestamp'], {data['label']: data['probability']}])
+    calmList.append([data['timestamp'], data['probability']])
 def callback_ap(data):
     global apList
     global currTimestamp
@@ -58,6 +58,12 @@ calm_unsubscribe()
 ap_unsubscribe()
 
 # Save to csv
-print(focusList)
-print(calmList)
-print(apList)
+apList = pd.DataFrame(apList, columns=["timestamp","alpha","beta","delta","gamma","theta"])
+calmList = pd.DataFrame(calmList, columns=["timestamp", "p_calm"])
+focusList = pd.DataFrame(focusList, columns=["timestamp", "p_focus"])
+
+ap_probability_table = pd.merge(apList, calmList, on="timestamp", how="outer")
+ap_probability_table = pd.merge(ap_probability_table, focusList, on="timestamp", how="outer")
+ap_probability_table.index = pd.to_datetime(ap_probability_table["timestamp"], unit="ms", utc=True).dt.strftime("%H:%M:%S.%f").str[:-1]
+ap_probability_table = ap_probability_table.drop(columns=["timestamp"])
+ap_probability_table.to_csv('./data/collected/ap_probability.csv')

@@ -7,6 +7,9 @@
     - Train LLM
 ## *Currently Working On*
 - Recording and saving data
+  - Fixing the sampling rate mismatch
+  - Resampling to a fixed time step
+  - Aggregate Features
+  - Add Labels
 - Testing [Neurosity SDK](https://github.com/neurosity/neurosity-sdk-python?tab=readme-ov-file) 
 ## *Issues / Pending*
-- I think the 5 second raw EEG graph in `SDKtest` is not matching the channels correctly (incorrect Y-axis)
