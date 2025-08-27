@@ -25,23 +25,18 @@ seconds = 5
 focusList = []
 calmList = []
 apList = []
-currTimestamp = 0
 
 # Callbacks for the SDK
 def callback_focus(data):
     global focusList
-    global currTimestamp
-    currTimestamp = data['timestamp']
     focusList.append([data['timestamp'],data['probability']])
 def callback_calm(data):
     global calmList
-    global currTimestamp 
-    currTimestamp = data['timestamp']
     calmList.append([data['timestamp'], data['probability']])
 def callback_ap(data):
     global apList
-    global currTimestamp
-    apList.append([currTimestamp, data['data']['alpha'], data['data']['beta'], data['data']['delta'], data['data']['gamma'], data['data']['theta']])
+    ts = int(time.time() * 1000)
+    apList.append([ts, data['data']['alpha'], data['data']['beta'], data['data']['delta'], data['data']['gamma'], data['data']['theta']])
 
 # Subscriptions to the live stream
 print(f"collecting data for the ap_probability table for {seconds} seconds")
