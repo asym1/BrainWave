@@ -7,7 +7,7 @@
     - Train LLM
 ## *Currently Working On*
 - Recording and saving data
-  - Fixing the sampling rate mismatch
+  - Fixing the sampling rate mismatch: timestamp only counts seconds not milliseconds since we only get one calm/focus per second, then we find the mean of all ap in one second and add the column to the column with ap NaN but p_focus/calm
   - Resampling to a fixed time step
   - Aggregate Features
   - Add Labels

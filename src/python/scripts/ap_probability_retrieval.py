@@ -59,6 +59,6 @@ focusList = pd.DataFrame(focusList, columns=["timestamp", "p_focus"])
 
 ap_probability_table = pd.merge(apList, calmList, on="timestamp", how="outer")
 ap_probability_table = pd.merge(ap_probability_table, focusList, on="timestamp", how="outer")
-ap_probability_table.index = pd.to_datetime(ap_probability_table["timestamp"], unit="ms", utc=True).dt.strftime("%H:%M:%S.%f").str[:-1]
+ap_probability_table.index = pd.to_datetime(ap_probability_table["timestamp"], unit="ms", utc=True).dt.strftime("%H:%M:%S")
 ap_probability_table = ap_probability_table.drop(columns=["timestamp"])
 ap_probability_table.to_csv('./data/collected/ap_probability.csv')
