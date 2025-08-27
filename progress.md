@@ -11,5 +11,5 @@
   - Resampling to a fixed time step
   - Aggregate Features
   - Add Labels
-- Testing [Neurosity SDK](https://github.com/neurosity/neurosity-sdk-python?tab=readme-ov-file) 
+- Adding proper documentation to the scripts
 ## *Issues / Pending*
