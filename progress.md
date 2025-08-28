@@ -11,14 +11,13 @@
 - [ ] Documentation for capabilities and limitations of consumer-grade EEG (Amr)
 - [ ] Cleaning Up [sdkTest](src/python/notebooks/SDKtest.ipynb) and add explanation for all epochs being recieved (Sarah)
 ### Data Scripts
-- [ ] check the kinesis functions available in SDK (Sarah)
 - [ ] Aggregate Features (Amr)
 - [ ] Adding proper documentation to the scripts (Amr)
 - [ ] Scaling the data_retrieval script so its can do checkpoint saves & doesn't just erase what's already in the csv (Sarah)
 - [ ] Dropping Nulls (Amr)
 ### SDK
 - [ ] Understand and explain PSD functions in SDK (Sarah)
-
+- [ ] check the kinesis functions available in SDK (Sarah)
 ## *Issues / Pending*
 - SDK AP function timestamp unavailable
 - [ ] choose a unique datetime instead of H:M:S
