@@ -6,11 +6,19 @@
   - ***Phase 2***
     - Train LLM
 ## *Currently Working On*
-- Recording and saving data
-  - Fixing the sampling rate mismatch: timestamp only counts seconds not milliseconds since we only get one calm/focus per second, then we find the mean of all ap in one second and add the column to the column with ap NaN but p_focus/calm
-  - Resampling to a fixed time step
-  - Aggregate Features
-  - Add Labels
-- Adding proper documentation to the scripts
-- Scaling the data_retrieval script so it can do checkpoint saves & doesn't just erase what's already in the csv
+- [ ] Add Labels (what do we want to predict) (Wait For Meeting with Dr.Amjad)
+### Notebooks
+- [ ] Documentation for capabilities and limitations of consumer-grade EEG (Amr)
+- [ ] Cleaning Up [sdkTest](src/python/notebooks/SDKtest.ipynb) and add explanation for all epochs being recieved (Sarah)
+### Data Scripts
+- [ ] check the kinesis functions available in SDK (Sarah)
+- [ ] Aggregate Features (Amr)
+- [ ] Adding proper documentation to the scripts (Amr)
+- [ ] Scaling the data_retrieval script so its can do checkpoint saves & doesn't just erase what's already in the csv (Sarah)
+- [ ] Dropping Nulls (Amr)
+### SDK
+- [ ] Understand and explain PSD functions in SDK (Sarah)
+
 ## *Issues / Pending*
+- SDK AP function timestamp unavailable
+- [ ] choose a unique datetime instead of H:M:S
