@@ -12,4 +12,5 @@
   - Aggregate Features
   - Add Labels
 - Adding proper documentation to the scripts
+- Scaling the data_retrieval script so it can do checkpoint saves & doesn't just erase what's already in the csv
 ## *Issues / Pending*
