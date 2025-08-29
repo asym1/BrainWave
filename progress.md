@@ -20,4 +20,4 @@
 - [ ] check the kinesis functions available in SDK (Sarah)
 ## *Issues / Pending*
 - SDK AP function timestamp unavailable
-- [ ] choose a unique datetime instead of H:M:S
+- [x] choose a unique datetime instead of H:M:S
