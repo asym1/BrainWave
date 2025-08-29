@@ -12,9 +12,9 @@
 - [ ] Cleaning Up [sdkTest](src/python/notebooks/SDKtest.ipynb) and add explanation for all epochs being recieved (Sarah)
 ### Data Scripts
 - [ ] Aggregate Features (Amr)
-- [ ] Adding proper documentation to the scripts (Amr)
+- [x] Adding proper documentation to the scripts (Amr)
 - [ ] Scaling the data_retrieval script so its can do checkpoint saves & doesn't just erase what's already in the csv (Sarah)
-- [ ] Dropping Nulls (Amr)
+- [x] Dropping Nulls (Amr)
 ### SDK
 - [ ] Understand and explain PSD functions in SDK (Sarah)
 - [ ] check the kinesis functions available in SDK (Sarah)
