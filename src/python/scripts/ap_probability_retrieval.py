@@ -2,13 +2,10 @@
 import time
 import pandas as pd
 from neurosity import NeurositySDK
-
 from dotenv import load_dotenv
 import os
-# might need to avoid writing into same table at the same time (data corruption)
-# import threading
 
-# Connecting To Neurosity
+# Authenticating & Connecting To Neurosity
 load_dotenv()
 neurosity = NeurositySDK({
     "device_id": os.getenv("NEUROSITY_DEVICE_ID")
@@ -27,22 +24,23 @@ apList = []
 # Callbacks for the SDK
 def callback_focus(data):
     global focusList
-    focusList.append([data['timestamp'],data['probability']])
+    focusList.append([data['timestamp'],data['probability']]) # adds samples as rows with the structure of [ts, p_f]
 def callback_calm(data):
     global calmList
-    calmList.append([data['timestamp'], data['probability']])
+    calmList.append([data['timestamp'], data['probability']]) # adds samples as rows with the structure of [ts, p_c]
 def callback_ap(data):
     global apList
-    ts = int(time.time() * 1000)
+    ts = int(time.time() * 1000) # since the API doesn't send the ap's timestamp i use the system for it
+    # adds samples as rows of [ts, alpha, beta, delta, gamma, theta]
     apList.append([ts, data['data']['alpha'], data['data']['beta'], data['data']['delta'], data['data']['gamma'], data['data']['theta']])
 
-# Subscriptions to the live stream
+# Subscriptions to the live stream for focus, calm, and absolute power by band
 print(f"collecting data for the ap_probability table for {seconds} seconds")
 focus_unsubscribe = neurosity.focus(callback_focus)
 calm_unsubscribe = neurosity.calm(callback_calm)
 ap_unsubscribe = neurosity.brainwaves_power_by_band(callback_ap)
 
-# Duration of live stream
+# Duration of live stream (execution delayes for s seconds)
 time.sleep(seconds)
 
 # Stop Subscription
@@ -50,13 +48,18 @@ focus_unsubscribe()
 calm_unsubscribe()
 ap_unsubscribe()
 
-# Save to csv
+# Turn all list into DataFrames with named columns for easy modification 
 apList = pd.DataFrame(apList, columns=["timestamp","alpha","beta","delta","gamma","theta"])
 calmList = pd.DataFrame(calmList, columns=["timestamp", "p_calm"])
 focusList = pd.DataFrame(focusList, columns=["timestamp", "p_focus"])
 
+# join all rows based on ts column so [ts, p_f] + [ts, p_c] + [ts, a, b, g, d, t] = [ts, a, b, g, t, d, p_f, p_c]
 ap_probability_table = pd.merge(apList, calmList, on="timestamp", how="outer")
 ap_probability_table = pd.merge(ap_probability_table, focusList, on="timestamp", how="outer")
+
+# Set index to datetime for auto sort and general convenience
 ap_probability_table.index = pd.to_datetime(ap_probability_table["timestamp"], unit="ms", utc=True).dt.strftime("%H:%M:%S")
 ap_probability_table = ap_probability_table.drop(columns=["timestamp"])
+
+# Save To CSV (needs to be changed to it adds to existing csv)
 ap_probability_table.to_csv('./data/collected/ap_probability.csv')
