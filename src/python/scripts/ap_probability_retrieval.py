@@ -16,14 +16,14 @@ neurosity.login({
 })
 
 # Variables
-seconds = 60 
+seconds = 10000
 focusList = []
 calmList = []
 apList = []
-BUFFER_LIMIT = 50
 CSV_FILE = './data/collected/ap_probability.csv' 
 
 def save_checkpoint():
+    
     global apList, calmList, focusList
     if not (apList or calmList or focusList): 
         return # If it is none of the states, nothing to save 
@@ -54,7 +54,7 @@ def save_checkpoint():
     # Append to CSV (write header only if file doesn't exist)
     file_exists = os.path.isfile(CSV_FILE)
     merged.to_csv(CSV_FILE, mode="a", header=not file_exists)
-
+    print(f"Appended {len(merged)} Rows To ap_probability.csv")
     # Clear buffers
     apList, calmList, focusList = [], [], [] 
 

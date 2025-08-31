@@ -19,14 +19,10 @@ def array_mean(x): # stack arrays and then get the mean row-wise
         return np.nan
     return np.nanmean(np.vstack(arrays), axis=0)
 
-table = table.groupby("timestamp").agg({ # Final Group-By that compresses collected samples and sets the table to 1Hz
-    "alpha": array_mean, # mean of all rows with the same second
-    "beta": array_mean, # mean of all rows with the same second
-    "delta": array_mean, # mean of all rows with the same second
-    "gamma": array_mean, # mean of all rows with the same second
-    "theta": array_mean, # mean of all rows with the same second
-    "p_focus": "mean", # normal scalar mean
-    "p_calm": "mean" # normal scalar mean
+# Final Group-By that compresses collected samples and sets the table to 1Hz
+table = table.groupby("timestamp").agg({ 
+    "alpha": array_mean, "beta": array_mean, "delta": array_mean, "gamma": array_mean, "theta": array_mean, # mean of all rows with the same second
+    "p_focus": "mean", "p_calm": "mean" # normal scalar mean
 })
 
 # Drop NaNs
@@ -34,6 +30,14 @@ table = table.dropna()
 
 # Feature Engineering for Aggregate Features and more
 
+# New Columns with mean power for alpha, beta, etc.
+table['mean_alpha'] = table['alpha'].apply(lambda x: np.mean(x))
+table['mean_beta'] = table['beta'].apply(lambda x: np.mean(x))
+table['mean_gamma'] = table['gamma'].apply(lambda x: np.mean(x))
+table['mean_delta'] = table['delta'].apply(lambda x: np.mean(x))
+table['mean_theta'] = table['theta'].apply(lambda x: np.mean(x))
+
+# New Columns for 
 # Emotions/States Labelling (for training set)
 
 # Saving CSV
