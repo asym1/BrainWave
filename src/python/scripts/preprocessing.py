@@ -55,6 +55,8 @@ table['total_power'] = table[[f'{col}_sum' for col in columns]].sum(axis=1)
 for col in columns:
     table[f'relative_{col}'] = table[f'{col}_sum'] / table['total_power']
 
+# PSD / KINESIS
+
 # Emotions/States Labelling (for training set)
 
 # Saving CSV

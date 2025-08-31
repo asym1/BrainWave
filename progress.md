@@ -12,7 +12,6 @@
 - [ ] Cleaning Up [sdkTest](src/python/notebooks/SDKtest.ipynb) and add explanation for all epochs being recieved (Sarah)
 ### Data Scripts
 - [ ] Aggregate Features (Amr)
-  - research more about ratios and what they mean
 - [x] Adding proper documentation to the scripts (Amr)
 - [x] Scaling the data_retrieval script so its can do checkpoint saves & doesn't just erase what's already in the csv (Sarah)
 - [x] Dropping Nulls (Amr)
@@ -23,7 +22,7 @@
 ## *Issues / Pending*
 - SDK AP function timestamp unavailable
 - [x] choose a unique datetime instead of H:M:S
-### What the final table should look like: (need to add the kinesis / accelo (motion artifact) columns, PSD columns for comparing left and right parts of brain, as well as more statistical summaries like std for the bands)
+### What the final table should look like: (need to add the kinesis / accelo (motion artifact) columns, PSD columns for comparing left and right parts of brain)
 - Timestamp
 - alpha
 - beta
@@ -103,10 +102,5 @@
 - relative_delta
 - relative_gamma
 - relative_theta
-- ratio_theta_alpha # sleepiness / low alertness
-- ratio_beta_alpha # engagement / focused effort
-- ratio_theta_beta # inattention/drowsiness
-- ratio_alpha_delta 
-- ratio_gamma_theta # working memory / memory load
 - p_focus
 - p_calm
