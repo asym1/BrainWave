@@ -29,15 +29,32 @@ table = table.groupby("timestamp").agg({
 table = table.dropna()
 
 # Feature Engineering for Aggregate Features and more
+columns = ['alpha', 'beta', 'delta', 'gamma', 'theta']
+channels = ['CP6', 'F6', 'C4', 'CP4', 'CP3', 'F5', 'C3', 'CP5'] # derived from testing in sdkTest
 
-# New Columns with mean power for alpha, beta, etc.
-table['mean_alpha'] = table['alpha'].apply(lambda x: np.mean(x))
-table['mean_beta'] = table['beta'].apply(lambda x: np.mean(x))
-table['mean_gamma'] = table['gamma'].apply(lambda x: np.mean(x))
-table['mean_delta'] = table['delta'].apply(lambda x: np.mean(x))
-table['mean_theta'] = table['theta'].apply(lambda x: np.mean(x))
+# New Columns with mean, varience, max, and min power for alpha, beta, etc.
+for col in columns:
+    table[f'mean_{col}'] = table[col].apply(lambda x: np.mean(x))
+    table[f'varience_{col}'] = table[col].apply(lambda x: np.var(x))
+    table[f'max_{col}'] = table[col].apply(lambda x: np.max(x))
+    table[f'min_{col}'] = table[col].apply(lambda x: np.min(x))
 
-# New Columns for 
+# New Columns seperating bands by channel
+for col in columns:
+    for i, ch in enumerate(channels):
+        table[f'{col}_{ch}'] = table[col].apply(lambda x: x[i])
+
+# Sum across channels for each band
+for col in columns:
+    table[f'{col}_sum'] = table[col].apply(sum)
+
+# Total power across all bands
+table['total_power'] = table[[f'{col}_sum' for col in columns]].sum(axis=1)
+
+# Relative power per band
+for col in columns:
+    table[f'relative_{col}'] = table[f'{col}_sum'] / table['total_power']
+
 # Emotions/States Labelling (for training set)
 
 # Saving CSV
