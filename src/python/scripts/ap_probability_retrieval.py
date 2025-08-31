@@ -21,25 +21,63 @@ focusList = []
 calmList = []
 apList = []
 BUFFER_LIMIT = 50
-##To do : add csv_file with a link of the csv 
+CSV_FILE = './data/collected/ap_probability.csv' 
 
 def save_checkpoint():
     global apList, calmList, focusList
     if not (apList or calmList or focusList): 
-        returm # If it is none of the states, nothing to save 
+        return # If it is none of the states, nothing to save 
+    
+# Convert lists to DataFrames
+    ap_df = pd.DataFrame(
+        apList,
+        columns=["timestamp", "alpha", "beta", "delta", "gamma", "theta"]
+    )
+    calm_df = pd.DataFrame(
+        calmList,
+        columns=["timestamp", "p_calm"]
+    )
+    focus_df = pd.DataFrame(
+        focusList,
+        columns=["timestamp", "p_focus"]
+    )
+       # Merge all three DataFrames
+    merged = pd.merge(ap_df, calm_df, on="timestamp", how="outer")
+    merged = pd.merge(merged, focus_df, on="timestamp", how="outer")
+
+    # Format timestamp into datetime index
+    merged.index = pd.to_datetime(
+        merged["timestamp"], unit="ms", utc=True
+    ).dt.strftime("%m/%d/%Y, %H:%M:%S")
+    merged = merged.drop(columns=["timestamp"])
+
+    # Append to CSV (write header only if file doesn't exist)
+    file_exists = os.path.isfile(CSV_FILE)
+    merged.to_csv(CSV_FILE, mode="a", header=not file_exists)
+
+    # Clear buffers
+    apList, calmList, focusList = [], [], [] 
 
 # Callbacks for the SDK
 def callback_focus(data):
     global focusList
     focusList.append([data['timestamp'],data['probability']]) # adds samples as rows with the structure of [ts, p_f]
+    if len(focusList) >= BUFFER_LIMIT:
+        save_checkpoint() 
+    
 def callback_calm(data):
     global calmList
     calmList.append([data['timestamp'], data['probability']]) # adds samples as rows with the structure of [ts, p_c]
+    if len(calmList) >= BUFFER_LIMIT:
+        save_checkpoint()
+
 def callback_ap(data):
     global apList
     ts = int(time.time() * 1000) # since the API doesn't send the ap's timestamp i use the system for it
     # adds samples as rows of [ts, alpha, beta, delta, gamma, theta]
     apList.append([ts, data['data']['alpha'], data['data']['beta'], data['data']['delta'], data['data']['gamma'], data['data']['theta']])
+    if len(apList) >= BUFFER_LIMIT:
+        save_checkpoint()
 
 # Subscriptions to the live stream for focus, calm, and absolute power by band
 print(f"collecting data for the ap_probability table for {seconds} seconds")
@@ -55,18 +93,20 @@ focus_unsubscribe()
 calm_unsubscribe()
 ap_unsubscribe()
 
-# Turn all list into DataFrames with named columns for easy modification 
-apList = pd.DataFrame(apList, columns=["timestamp","alpha","beta","delta","gamma","theta"])
-calmList = pd.DataFrame(calmList, columns=["timestamp", "p_calm"])
-focusList = pd.DataFrame(focusList, columns=["timestamp", "p_focus"])
+# # Turn all list into DataFrames with named columns for easy modification 
+# apList = pd.DataFrame(apList, columns=["timestamp","alpha","beta","delta","gamma","theta"])
+# calmList = pd.DataFrame(calmList, columns=["timestamp", "p_calm"])
+# focusList = pd.DataFrame(focusList, columns=["timestamp", "p_focus"])
 
-# join all rows based on ts column so [ts, p_f] + [ts, p_c] + [ts, a, b, g, d, t] = [ts, a, b, g, t, d, p_f, p_c]
-ap_probability_table = pd.merge(apList, calmList, on="timestamp", how="outer")
-ap_probability_table = pd.merge(ap_probability_table, focusList, on="timestamp", how="outer")
+# # join all rows based on ts column so [ts, p_f] + [ts, p_c] + [ts, a, b, g, d, t] = [ts, a, b, g, t, d, p_f, p_c]
+# ap_probability_table = pd.merge(apList, calmList, on="timestamp", how="outer")
+# ap_probability_table = pd.merge(ap_probability_table, focusList, on="timestamp", how="outer")
 
-# Set index to datetime for auto sort and general convenience
-ap_probability_table.index = pd.to_datetime(ap_probability_table["timestamp"], unit="ms", utc=True).dt.strftime("%m/%d/%Y, %H:%M:%S")
-ap_probability_table = ap_probability_table.drop(columns=["timestamp"])
+# # Set index to datetime for auto sort and general convenience
+# ap_probability_table.index = pd.to_datetime(ap_probability_table["timestamp"], unit="ms", utc=True).dt.strftime("%m/%d/%Y, %H:%M:%S")
+# ap_probability_table = ap_probability_table.drop(columns=["timestamp"])
 
-# Save To CSV (needs to be changed to it adds to existing csv)
-ap_probability_table.to_csv('./data/collected/ap_probability.csv')
+# # Save To CSV (needs to be changed to it adds to existing csv)
+# ap_probability_table.to_csv('./data/collected/ap_probability.csv')
+
+save_checkpoint() 
