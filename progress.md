@@ -23,3 +23,90 @@
 ## *Issues / Pending*
 - SDK AP function timestamp unavailable
 - [x] choose a unique datetime instead of H:M:S
+### What the final table should look like: (need to add the kinesis / accelo (motion artifact) columns, PSD columns for comparing left and right parts of brain, as well as more statistical summaries like std for the bands)
+- Timestamp
+- alpha
+- beta
+- delta
+- gamma
+- theta
+- mean_alpha
+- mean_beta
+- mean_delta
+- mean_gamma
+- mean_theta
+- alpha_cp6  
+- beta_cp6  
+- gamma_cp6  
+- delta_cp6  
+- theta_cp6  
+- alpha_f6  
+- beta_f6  
+- gamma_f6  
+- delta_f6  
+- theta_f6  
+- alpha_c4  
+- beta_c4  
+- gamma_c4  
+- delta_c4  
+- theta_c4  
+- alpha_cp4  
+- beta_cp4  
+- gamma_cp4  
+- delta_cp4  
+- theta_cp4  
+- alpha_cp3  
+- beta_cp3  
+- gamma_cp3  
+- delta_cp3  
+- theta_cp3  
+- alpha_f5  
+- beta_f5  
+- gamma_f5  
+- delta_f5  
+- theta_f5  
+- alpha_c3  
+- beta_c3  
+- gamma_c3  
+- delta_c3  
+- theta_c3  
+- alpha_cp5  
+- beta_cp5  
+- gamma_cp5  
+- delta_cp5  
+- theta_cp5 
+- alpha_varience 
+- alpha_max  
+- alpha_min  
+- beta_varience  
+- beta_max  
+- beta_min  
+- gamma_varience 
+- gamma_max  
+- gamma_min  
+- delta_varience  
+- delta_max  
+- delta_min  
+- theta_varience 
+- theta_max  
+- theta_min   
+- raw_cp6
+- raw_f6
+- raw_c4
+- raw_cp4
+- raw_cp3
+- raw_f5
+- raw_c3
+- raw_cp5
+- relative_alpha
+- relative_beta
+- relative_delta
+- relative_gamma
+- relative_theta
+- ratio_theta_alpha # sleepiness / low alertness
+- ratio_beta_alpha # engagement / focused effort
+- ratio_theta_beta # inattention/drowsiness
+- ratio_alpha_delta 
+- ratio_gamma_theta # working memory / memory load
+- p_focus
+- p_calm
