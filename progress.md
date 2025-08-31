@@ -13,10 +13,10 @@
 ### Data Scripts
 - [ ] Aggregate Features (Amr)
 - [x] Adding proper documentation to the scripts (Amr)
-- [ ] Scaling the data_retrieval script so its can do checkpoint saves & doesn't just erase what's already in the csv (Sarah)
+- [x] Scaling the data_retrieval script so its can do checkpoint saves & doesn't just erase what's already in the csv (Sarah)
 - [x] Dropping Nulls (Amr)
 ### SDK
-- [ ] Understand and explain PSD functions in SDK (Sarah)
+- [x] Understand and explain PSD functions in SDK (Sarah)
 - [ ] check the kinesis functions available in SDK (Sarah)
 ## *Issues / Pending*
 - SDK AP function timestamp unavailable
