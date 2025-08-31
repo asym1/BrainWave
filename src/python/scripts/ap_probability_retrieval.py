@@ -16,10 +16,17 @@ neurosity.login({
 })
 
 # Variables
-seconds = 60
+seconds = 60 
 focusList = []
 calmList = []
 apList = []
+BUFFER_LIMIT = 50
+##To do : add csv_file with a link of the csv 
+
+def save_checkpoint():
+    global apList, calmList, focusList
+    if not (apList or calmList or focusList): 
+        returm # If it is none of the states, nothing to save 
 
 # Callbacks for the SDK
 def callback_focus(data):
