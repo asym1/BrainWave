@@ -9,3 +9,4 @@ venv/
 # data/
 # data_raw/
 # models/
+*.csv
