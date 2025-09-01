@@ -9,4 +9,6 @@ venv/
 data/
 # data_raw/
 # models/
-*.csv
+ap_probability.csv
+raw_eeg.csv
+ap_probability_clean.csv
