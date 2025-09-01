@@ -20,11 +20,13 @@ seconds = 10000
 focusList = []
 calmList = []
 apList = []
-CSV_FILE = './data/collected/ap_probability.csv' 
-BUFFER_LIMIT = 500
+rawList = []
+FEATURE_CSV_FILE = './data/collected/ap_probability.csv' 
+RAW_CSV_FILE = './data/collected/raw_eeg.csv'
+BUFFER_LIMIT = 100
 def save_checkpoint():
     
-    global apList, calmList, focusList
+    global apList, calmList, focusList, rawList
     if not (apList or calmList or focusList): 
         return # If it is none of the states, nothing to save 
     
@@ -41,6 +43,10 @@ def save_checkpoint():
         focusList,
         columns=["timestamp", "p_focus"]
     )
+    raw_df = pd.DataFrame(
+        rawList,
+        columns=['timestamp', 'CP6', 'F6', 'C4', 'CP4', 'CP3', 'F5', 'C3', 'CP5']
+    )
        # Merge all three DataFrames
     merged = pd.merge(ap_df, calm_df, on="timestamp", how="outer")
     merged = pd.merge(merged, focus_df, on="timestamp", how="outer")
@@ -51,12 +57,18 @@ def save_checkpoint():
     ).dt.strftime("%m/%d/%Y, %H:%M:%S")
     merged = merged.drop(columns=["timestamp"])
 
-    # Append to CSV (write header only if file doesn't exist)
-    file_exists = os.path.isfile(CSV_FILE)
-    merged.to_csv(CSV_FILE, mode="a", header=not file_exists)
+    # Append feature list to CSV (write header only if file doesn't exist)
+    file_exists = os.path.isfile(FEATURE_CSV_FILE)
+    merged.to_csv(FEATURE_CSV_FILE, mode="a", header=not file_exists)
+
+    # Append eeg data to csv
+    file_exists = os.path.isfile(RAW_CSV_FILE)
+    raw_df.to_csv(RAW_CSV_FILE, mode="a", header=not file_exists)
+
     print(f"Appended {len(merged)} Rows To ap_probability.csv")
+    print(f'Appended {len(raw_df)} Rows To raw_eeg.csv')
     # Clear buffers
-    apList, calmList, focusList = [], [], [] 
+    apList, calmList, focusList, rawList = [], [], [], [] 
 
 # Callbacks for the SDK
 def callback_focus(data):
@@ -73,17 +85,24 @@ def callback_calm(data):
 
 def callback_ap(data):
     global apList
-    ts = int(time.time() * 1000) # since the API doesn't send the ap's timestamp i use the system for it
+    ts = int(time.time() * 1000) # since the API doesn't send the ap's timestamp i use the system clock for it
     # adds samples as rows of [ts, alpha, beta, delta, gamma, theta]
     apList.append([ts, data['data']['alpha'], data['data']['beta'], data['data']['delta'], data['data']['gamma'], data['data']['theta']])
     if len(apList) >= BUFFER_LIMIT:
         save_checkpoint()
+
+def callback_raw(data):
+    global rawList
+    ts = data['info']['startTime']
+    data = data['data']
+    rawList.append([ts] + data)
 
 # Subscriptions to the live stream for focus, calm, and absolute power by band
 print(f"collecting data for the ap_probability table for {seconds} seconds")
 focus_unsubscribe = neurosity.focus(callback_focus)
 calm_unsubscribe = neurosity.calm(callback_calm)
 ap_unsubscribe = neurosity.brainwaves_power_by_band(callback_ap)
+raw_unsubscribe = neurosity.brainwaves_raw(callback_raw)
 
 # Duration of live stream (execution delayes for s seconds)
 time.sleep(seconds)
@@ -92,6 +111,7 @@ time.sleep(seconds)
 focus_unsubscribe()
 calm_unsubscribe()
 ap_unsubscribe()
+raw_unsubscribe()
 
 # # Turn all list into DataFrames with named columns for easy modification 
 # apList = pd.DataFrame(apList, columns=["timestamp","alpha","beta","delta","gamma","theta"])
