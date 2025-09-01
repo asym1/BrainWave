@@ -21,7 +21,7 @@ focusList = []
 calmList = []
 apList = []
 CSV_FILE = './data/collected/ap_probability.csv' 
-
+BUFFER_LIMIT = 500
 def save_checkpoint():
     
     global apList, calmList, focusList
