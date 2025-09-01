@@ -6,7 +6,7 @@ venv/
 
 
 # comment/uncomment up to discretion
-# data/
+data/
 # data_raw/
 # models/
 *.csv
