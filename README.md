@@ -18,3 +18,7 @@ NEUROSITY_DEVICE_ID=your device id here
 - Setup a virtual enviroment and ide to allow jupyter notebooks & python scripts
 - install everything in `requirements.txt` using either pip or enviroment command
 - Go to [SDK Testing Notebook](src/python/notebooks/SDKtest.ipynb) to make sure your sdk is working properly before using any scripts in the following sections
+## Data Collection
+- run the [data collection](src/python/scripts/data_collection.py) script to connect and start recieving live data streams, make sure to change the config variables to choose the script running time and other configurations such as buffer time:
+## Data Cleaning & Pre-processing (in progress)
+- run the [processing](src/python/scripts/pre-processing.py) to clean the NaN rows and add all mathematical summary & relative columns/selected features
